@@ -149,4 +149,4 @@ Representa un artículo en una venta. Los atributos son:
 
 1. Clonar el repositorio:
    ```bash
-   git clone https://github.com/DanielWar01/api-ventas.git
+   [https://github.com/DanielWar01/springboot-exam.git]
