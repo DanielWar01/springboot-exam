@@ -1,11 +1,8 @@
 package co.edu.uptc.springbootexam.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -20,12 +17,12 @@ public class SaleItem {
     @Schema(description = "ID del artículo de venta generado automáticamente", hidden = true)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "sale_id", nullable = false)
     @Schema(description = "Venta asociada al artículo de venta", required = true)
     private Sale sale;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "product_id", nullable = false)
     @Schema(description = "Producto asociado al artículo de venta", required = true)
     private Product product;
@@ -38,12 +35,12 @@ public class SaleItem {
     @Schema(description = "Precio del artículo de venta", example = "100.0", required = true)
     private Double price;
 
-    @Column(name = "created_at")
-    @Schema(description = "Fecha de actualización del artículo de venta",  hidden = true)
+    @Column(name = "created_at", updatable = false)
+    @Schema(description = "Fecha de creación del artículo de venta", hidden = true)
     private LocalDateTime createdAt;
 
     @PrePersist
-    protected void onCreate() {
+    private void onCreate() {
         createdAt = LocalDateTime.now();
     }
 }

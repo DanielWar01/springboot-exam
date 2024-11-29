@@ -2,9 +2,7 @@ package co.edu.uptc.springbootexam.entities;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -34,8 +32,8 @@ public class Product {
     @Schema(description = "Cantidad en stock del producto", example = "50", required = true)
     private Integer stock;
 
-    @Column(name = "created_at")
-    @Schema(description = "Fecha de creación del producto",  hidden = true)
+    @Column(name = "created_at", updatable = false)
+    @Schema(description = "Fecha de creación del producto", hidden = true)
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
@@ -43,13 +41,13 @@ public class Product {
     private LocalDateTime updatedAt;
 
     @PrePersist
-    protected void onCreate() {
+    private void onCreate() {
         createdAt = LocalDateTime.now();
         updatedAt = LocalDateTime.now();
     }
 
     @PreUpdate
-    protected void onUpdate() {
+    private void onUpdate() {
         updatedAt = LocalDateTime.now();
     }
 }

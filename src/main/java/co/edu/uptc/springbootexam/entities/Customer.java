@@ -21,7 +21,7 @@ public class Customer {
     @Schema(description = "Nombre del cliente", example = "Cliente 1", required = true)
     private String name;
 
-    @Column(unique = true)
+    @Column(nullable = false, unique = true)
     @Schema(description = "Correo electrónico del cliente", example = "cliente1@example.com", required = true)
     private String email;
 
@@ -31,22 +31,22 @@ public class Customer {
     @Schema(description = "Dirección del cliente", example = "Dirección del Cliente 1")
     private String address;
 
-    @Column(name = "created_at")
-    @Schema(description = "Fecha de creación del cliente",  hidden = true)
+    @Column(name = "created_at", updatable = false)
+    @Schema(description = "Fecha de creación del cliente", hidden = true)
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
-    @Schema(description = "Fecha de actualización del cliente",  hidden = true)
+    @Schema(description = "Fecha de actualización del cliente", hidden = true)
     private LocalDateTime updatedAt;
 
     @PrePersist
-    protected void onCreate() {
+    private void onCreate() {
         createdAt = LocalDateTime.now();
         updatedAt = LocalDateTime.now();
     }
 
     @PreUpdate
-    protected void onUpdate() {
+    private void onUpdate() {
         updatedAt = LocalDateTime.now();
     }
 }
